@@ -1,23 +1,20 @@
 from trivia_refactored import Game
-from random import randrange, seed
 import sys
+import random
 
 class GameRunner(object):
     def __init__(self, seed, players):
-        self.seed = seed
+        random.seed(seed)
         self.players = players
 
     def run(self):
-        if self.seed is not None:
-            seed(self.seed)
-        
         game = Game().with_players(self.players)
         game_won = False
         
         while not game_won:
-            game.roll(randrange(5) + 1)
+            game.roll(random.randrange(5) + 1)
             
-            if randrange(9) == 7:
+            if random.randrange(9) == 7:
                 game.wrong_answer()
             else:
                 game_won = game.correct_answer()
@@ -29,5 +26,5 @@ if __name__ == '__main__':
     else:
         seed = None
     
-    game_runner = GameRunner(seed, [])
+    game_runner = GameRunner(seed, ["Chet", "Pat", "Sue"])
     game_runner.run()
