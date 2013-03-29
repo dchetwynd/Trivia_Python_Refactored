@@ -37,7 +37,7 @@ class TriviaTest(unittest.TestCase):
         game.wrong_answer()
         self.assertTrue(game.in_penalty_box[BOB])
 
-    def testRollingOddNumberWhenInPenaltyBoxRemovedPlayerFromPenaltyBox(self):
+    def testRollingOddNumberWhenInPenaltyBoxRemovesPlayerFromPenaltyBox(self):
         game = Game().with_players(["Bob"])
         game.in_penalty_box[BOB] = True
         game.roll(1)
@@ -94,6 +94,20 @@ class TriviaTest(unittest.TestCase):
         game.in_penalty_box[BOB] = False
         game.wrong_answer()
         self.assertEqual(0, game.purses[BOB])
+
+    def testPlayerDoesNotWinTheGameByEarningFiveCoins(self):
+        game = Game().with_players(["Bob"])
+        game.in_penalty_box[BOB] = False
+        game.purses[BOB] = 4
+        is_game_won = game.correct_answer()
+        self.assertFalse(is_game_won)
+ 
+    def testPlayerWinsTheGameByEarningSixCoins(self):
+        game = Game().with_players(["Bob"])
+        game.in_penalty_box[BOB] = False
+        game.purses[BOB] = 5
+        is_game_won = game.correct_answer()
+        self.assertTrue(is_game_won)
 
 if __name__ == '__main__':
     unittest.main()
