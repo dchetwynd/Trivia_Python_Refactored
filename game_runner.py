@@ -2,9 +2,17 @@ from trivia_refactored import Game
 import sys
 import random
 
+class RandomGenerator(object):
+    def get_next_roll(self):
+        return random.randrange(5) + 1
+
+    def get_random_number(self, max):
+        return random.randrange(max)
+
 class GameRunner(object):
-    def __init__(self, seed, players):
+    def __init__(self, seed, players, random_generator=RandomGenerator()):
         random.seed(seed)
+        self.random_generator = random_generator
         self.players = players
 
     def run(self):
@@ -12,9 +20,9 @@ class GameRunner(object):
         game_won = False
         
         while not game_won:
-            game.roll(random.randrange(5) + 1)
+            game.roll(self.random_generator.get_next_roll())
             
-            if random.randrange(9) == 7:
+            if self.random_generator.get_random_number(9) == 7:
                 game.wrong_answer()
             else:
                 game_won = game.correct_answer()
