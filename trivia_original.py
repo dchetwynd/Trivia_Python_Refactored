@@ -126,6 +126,7 @@ class Game:
                 ' Gold Coins.'
             
             winner = self._did_player_win()
+            if not winner: print "%s has won the game!" % self.players[self.current_player]
             self.current_player += 1
             if self.current_player == len(self.players): self.current_player = 0
             

@@ -26,6 +26,7 @@ class GameRunner(object):
                 game.wrong_answer()
             else:
                 game_won = game.correct_answer()
+            if game_won: print "%s has won the game!" % game.players[game.current_player]
             game.change_player()
 
 if __name__ == '__main__':
